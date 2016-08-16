@@ -65,7 +65,7 @@ datasetFile.close()
 # Init empty lists and other parameters
 directoryInsert = 'results/insert_queries/'
 directoryCreate = 'results/create_tables/'
-fileExtension = '.txt'
+fileExtension = '.sql'
 tableName = "census_area"
 rowsSplitted = []
 headersList = []

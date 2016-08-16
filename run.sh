@@ -17,7 +17,7 @@ mkdir results/insert_queries
 python parseCSV.py 2,18,25,26,147
 
 # Merges the files contained in the first subdirectory
-python mergeFiles.py results/create_tables/ .txt
+python mergeFiles.py results/create_tables/ .sql
 
 # Merges the files contained in the second subdirectory
-python mergeFiles.py results/insert_queries/ .txt
+python mergeFiles.py results/insert_queries/ .sql
