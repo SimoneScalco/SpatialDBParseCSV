@@ -12,17 +12,6 @@ extension = sys.argv[2]
 filesList = os.listdir(directory)
 filesList.reverse()
 
-filesListIndexes = []
-# Gets the first column integer
-for fileName in filesList:
-    fileIndex = fileName.split('_')[1].split('-')[0]
-    filesListIndexes.append(fileIndex)
-    print fileName
-
-sorted(filesList, key=lambda fileColumnIndex: filesListIndexes)
-
-print filesList
-
 # Opens the output file
 outputFileName = 'DIRECTORY_MERGE'
 outputFile = open(directory + outputFileName + extension, 'a')
