@@ -38,20 +38,25 @@ def parseCharacters(singleElement):
 
         if singleCharacter == ';':
             insertValuesFile.write(', ')
+            insertValuesFileRaw.write(', ')
 
         elif singleCharacter == '\n' or singleCharacter == '\r':
             # Removes escape characters from last element
             insertValuesFile.write('')
+            insertValuesFileRaw.write('')
 
         elif singleCharacter == 'ü':
             # Removes non-ascii characters from the query
             insertValuesFile.write('u')
+            insertValuesFileRaw.write('u')
 
         elif singleCharacter == 'ß':
             insertValuesFile.write('B')
+            insertValuesFileRaw.write('B')
 
         else:
             insertValuesFile.write(singleCharacter)
+            insertValuesFileRaw.write(singleCharacter)
 
 
 # Opens dataset
@@ -66,6 +71,7 @@ datasetFile.close()
 # Init empty lists and other parameters
 directoryInsert = 'results/insert_queries/'
 directoryCreate = 'results/create_tables/'
+directoryInsertRaw = directoryInsert + 'raw/'
 fileExtension = '.sql'
 tableName = "census_area"
 rowsSplitted = []
@@ -181,6 +187,7 @@ for singleRow in rowsSplitted:
         # Opens a new file for the insert scripts
         fileName = 'insert_' + str(counter) + "-" + str(singleCommandLineArgument) + fileExtension
         insertValuesFile = open(directoryInsert + fileName, 'a')
+        insertValuesFileRaw = open(directoryInsertRaw + fileName, 'a')
 
         # Prints the insert statement
         insertValuesFile.write('INSERT INTO ' + tableName + '_' + str(counterTableNum) + ' VALUES(')
@@ -194,11 +201,13 @@ for singleRow in rowsSplitted:
             if headersTypesBool[counterElementNum] == False:
 
                 insertValuesFile.write("'")
+                insertValuesFileRaw.write("'")
 
                 # Parse rare characters and substitute them
                 parseCharacters(singleElement)
 
                 insertValuesFile.write("'")
+                insertValuesFileRaw.write("'")
 
             else:
                 # Parse rare characters and substitute them
@@ -207,11 +216,13 @@ for singleRow in rowsSplitted:
             # Check if this is the last element that should be printed in the query
             if counterElementNum != int(singleCommandLineArgument):
                 insertValuesFile.write(', ')
+                insertValuesFileRaw.write(",")
 
             counterElementNum += 1
 
         # Closes the insert statement
         insertValuesFile.write(');\n')
+        insertValuesFileRaw.write("\n")
 
         # Update the counters
         counter = int(singleCommandLineArgument) + 1
@@ -220,6 +231,7 @@ for singleRow in rowsSplitted:
 
     # Close insert
     insertValuesFile.close()
+    insertValuesFileRaw.close()
 
 
 print "[STATUS] Insert queries have been written in '" + directoryInsert + "'"
