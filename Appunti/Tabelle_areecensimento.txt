@@ -1,0 +1,11 @@
+Tabella1: colonne 0-6, chiave primaria PROCOM
+
+Tabella 2 [Population] colonne 7-84, chiave primaria PROCOM-ACE, chiave esterna PROCOM
+
+Tabella 3 [Foreigners] colonne 85-99, chiave primaria PROCOM-ACE, chiave esterna PROCOM
+
+Tabella 4 [Houses] colonne 100-106, chiave primaria PROCOM-ACE, chiave esterna PROCOM   --- TODO famiglie mischiate
+
+Tabella 5 [Families] colonne 107-117, chiave primaria PROCOM-ACE, chiave esterna PROCOM
+
+Tabella 5 [Buildings] colonne 118-147, chiave primaria PROCOM-ACE, chiave esterna PROCOM

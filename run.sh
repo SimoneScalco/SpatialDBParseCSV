@@ -14,7 +14,7 @@ mkdir results/create_tables
 mkdir results/insert_queries
 
 # Parses the CSV file and specifies the column division
-python parseCSV.py 2,18,25,26,147
+python parseCSV.py 6,84,99,106,117,147
 
 # Merges the files contained in the first subdirectory
 python mergeFiles.py results/create_tables/ .sql
