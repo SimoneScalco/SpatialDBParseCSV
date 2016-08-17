@@ -131,11 +131,12 @@ print "[STATUS] " + str(len(headersTypes)) + " types checked for the CSV headers
 ###############################################
 
 counter = 0
+counterFile = 0
 counterTableNum = 0
 for singleCommandLineArgument in commandLineArguments:
 
     # Opens a new file for the create tables script
-    fileName = 'create_' + str(counter) + "-" + str(singleCommandLineArgument) + fileExtension
+    fileName = str(counterFile) + '_create_' + str(counter) + "-" + str(singleCommandLineArgument) + fileExtension
     createTableFile = open(directoryCreate + fileName, 'w')
 
     # Prints the create table statements
@@ -159,6 +160,7 @@ for singleCommandLineArgument in commandLineArguments:
     # Update the counters
     counter = int(singleCommandLineArgument)+1
     counterTableNum += 1
+    counterFile += 1
 
     # Close create table file
     createTableFile.close()
@@ -180,12 +182,13 @@ for singleRow in rowsSplitted:
     singleRowListDivided = singleRowString.split(';')
 
     counter = 0
+    counterFile = 0
     counterTableNum = 0
     # For each subdivision in input
     for singleCommandLineArgument in commandLineArguments:
 
         # Opens a new file for the insert scripts
-        fileName = 'insert_' + str(counter) + "-" + str(singleCommandLineArgument) + fileExtension
+        fileName = str(counterFile) + '_insert_' + str(counter) + "-" + str(singleCommandLineArgument) + fileExtension
         insertValuesFile = open(directoryInsert + fileName, 'a')
         insertValuesFileRaw = open(directoryInsertRaw + fileName, 'a')
 
@@ -227,6 +230,7 @@ for singleRow in rowsSplitted:
         # Update the counters
         counter = int(singleCommandLineArgument) + 1
         counterTableNum += 1
+        counterFile += 1
 
 
     # Close insert
