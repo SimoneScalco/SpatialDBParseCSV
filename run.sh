@@ -19,6 +19,8 @@ mkdir results/insert_queries/raw
 
 python parseCSV.py 6,13,89,104,110,122,153 R04_indicatori_2011_localita.csv
 
+#python parseCSV.py 6,13,89,104,110,122,153 R04_indicatori_2011_sezioni.csv
+
 # Merges the files contained in the first subdirectory
 python mergeFiles.py results/create_tables/ .sql
 
