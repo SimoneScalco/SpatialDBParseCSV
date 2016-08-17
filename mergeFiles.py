@@ -10,7 +10,7 @@ extension = sys.argv[2]
 
 # Gets the list of files for the directory to inspect
 filesList = os.listdir(directory)
-filesList.reverse()
+filesList.sort()
 
 # Opens the output file
 outputFileName = 'DIRECTORY_MERGE'
