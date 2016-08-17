@@ -36,7 +36,6 @@ def varcharMaxLenght(rows,column):
 
     for row in rows:
         riga=''.join(row).split(';')
-        print type(riga[column])
         lungh=len(riga[column])
         if lungh>maxLenght:
             maxLenght=lungh
