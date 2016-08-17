@@ -22,3 +22,6 @@ python mergeFiles.py results/create_tables/ .sql
 
 # Merges the files contained in the second subdirectory
 python mergeFiles.py results/insert_queries/ .sql
+
+#Remove duplicates
+python removeDuplicates.py results/insert_queries/DIRECTORY_MERGE.sql
