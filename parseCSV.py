@@ -77,6 +77,14 @@ def parseCharacters(singleElement):
             insertValuesFile.write('a')
             insertValuesFileRaw.write('a')
 
+        elif singleCharacter == 'ì':
+            insertValuesFile.write('i')
+            insertValuesFileRaw.write('i')
+
+        elif singleCharacter == 'ù':
+            insertValuesFile.write('u')
+            insertValuesFileRaw.write('u')
+
         else:
             insertValuesFile.write(singleCharacter)
             insertValuesFileRaw.write(singleCharacter)
