@@ -31,6 +31,18 @@ def detectPSQLOverflow(i):
 def deleteFirstElement(s):
     del s[0]
 
+def varcharMaxLenght(rows,column):
+    maxLenght=0
+
+    for row in rows:
+        riga=''.join(row).split(';')
+        print type(riga[column])
+        lungh=len(riga[column])
+        if lungh>maxLenght:
+            maxLenght=lungh
+
+    return maxLenght
+
 
 def parseCharacters(singleElement):
 
@@ -117,7 +129,7 @@ for singleHeader in headersList:
         headersTypesBool.append(True)
 
     else:
-        headersTypes.append("varchar(30)")
+        headersTypes.append("varchar("+str(varcharMaxLenght(rowsSplitted,counterColumn)+1)+")")
         headersTypesBool.append(False)
 
     counterColumn += 1
