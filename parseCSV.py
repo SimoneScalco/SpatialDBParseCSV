@@ -62,8 +62,20 @@ def parseCharacters(singleElement):
             insertValuesFileRaw.write('u')
 
         elif singleCharacter == 'ß':
-            insertValuesFile.write('B')
-            insertValuesFileRaw.write('B')
+            insertValuesFile.write('ss')
+            insertValuesFileRaw.write('ss')
+
+        elif singleCharacter == 'ö' or singleCharacter == 'ò':
+            insertValuesFile.write('o')
+            insertValuesFileRaw.write('o')
+
+        elif singleCharacter == 'é' or singleCharacter == 'è':
+            insertValuesFile.write('e')
+            insertValuesFileRaw.write('e')
+
+        elif singleCharacter == 'à':
+            insertValuesFile.write('a')
+            insertValuesFileRaw.write('a')
 
         else:
             insertValuesFile.write(singleCharacter)
@@ -214,14 +226,14 @@ for singleRow in rowsSplitted:
             # Check if we need to write into a varchar
             if headersTypesBool[counterElementNum] == False:
 
-                insertValuesFile.write("'")
-                insertValuesFileRaw.write("'")
+                insertValuesFile.write("\"")
+                insertValuesFileRaw.write("\"")
 
                 # Parse rare characters and substitute them
                 parseCharacters(singleElement)
 
-                insertValuesFile.write("'")
-                insertValuesFileRaw.write("'")
+                insertValuesFile.write("\"")
+                insertValuesFileRaw.write("\"")
 
             else:
                 # Parse rare characters and substitute them
