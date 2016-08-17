@@ -55,7 +55,8 @@ def parseCharacters(singleElement):
 
 
 # Opens dataset
-datasetFile = open('R04_indicatori_2011_areecensimento.csv', 'r')
+datasetFileName = sys.argv[2]
+datasetFile = open(str(datasetFileName), 'r')
 
 # Read lines from test file
 allLines = datasetFile.readlines()
