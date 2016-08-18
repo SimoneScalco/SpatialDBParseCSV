@@ -33,5 +33,7 @@ python removeDuplicates.py results/insert_queries/DIRECTORY_MERGE.sql
 #Remapping table names
 python remap.py results/create_tables/DIRECTORY_MERGE.sql census_area_0:COMUNI census_area_1:PONGO census_area_5:PROSCIUTTO
 
+python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:COMUNI census_area_1:PONGO census_area_5:PROSCIUTTO
+
 #Merge all DIRECTORY_MERGE
 python mergeAll.py
