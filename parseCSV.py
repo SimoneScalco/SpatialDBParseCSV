@@ -260,18 +260,18 @@ for singleCommandLineArgument in columnIndexes:
 
 
         # Reference clause
-        createTableFile.write(') REFERENCES(')
+        createTableFile.write(') REFERENCES ' + tableName + '_' + str(headersTypesRelatedTableNum[int(singleForeignKeyColumn)]) + ' (')
         firstCycle = True
 
         # Writes the reference for the foreign keys just printed
         for singleForeignKeyColumn in foreignKeyList:
 
             if firstCycle:
-                createTableFile.write(tableName + '_' + str(headersTypesRelatedTableNum[int(singleForeignKeyColumn)]) + '.' + headersList[int(singleForeignKeyColumn)])
+                createTableFile.write(headersList[int(singleForeignKeyColumn)])
                 firstCycle = False
 
             else:
-                createTableFile.write(', ' + tableName + '_' + str(headersTypesRelatedTableNum[int(singleForeignKeyColumn)]) + '.' + headersList[int(singleForeignKeyColumn)])
+                createTableFile.write(', ' + headersList[int(singleForeignKeyColumn)])
 
         # Closes the foreign key statement
         createTableFile.write(')')
