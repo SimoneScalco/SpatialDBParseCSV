@@ -91,7 +91,7 @@ def parseCharacters(singleElement):
 
 
 # Opens dataset
-datasetFileName = sys.argv[2]
+datasetFileName = sys.argv[1]
 datasetFile = open(str(datasetFileName), 'r')
 
 # Read lines from test file
@@ -110,9 +110,28 @@ headersList = []
 headersTypes = []
 headersTypesBool = []
 randomRow = random.randint(1, len(allLines)-2)
-commandLineArguments = ''.join(sys.argv[1]).split(',')
+#commandLineArguments = ''.join(sys.argv[2]).split(',')
+columnIndexes = []
+primaryKeyIndexes = []
+foreignKeyIndexes = []
 
-print "[STATUS] Input arguments: " + str(commandLineArguments)
+# Copies the command line parameters considering a specific syntax
+for counterCommandLineArguments in range(2, len(sys.argv)):
+
+    # Copies the column indexes for the tables division
+    tempString = ''.join(sys.argv[counterCommandLineArguments])
+    columnIndexes.append(tempString.split(',')[0])
+
+    # Copies the primary keys
+    tempString = ''.join(sys.argv[counterCommandLineArguments])
+    primaryKeyIndexes.append(tempString.split(',')[1])
+
+    # Copies the foreign keys
+    tempString = ''.join(sys.argv[counterCommandLineArguments])
+    foreignKeyIndexes.append(tempString.split(',')[2])
+
+
+print "[STATUS] Input arguments: " + str(columnIndexes)
 
 # Gets the header of each column and appends it to the header list
 firstLine = allLines[0].split(',')
@@ -164,7 +183,7 @@ print "[STATUS] " + str(len(headersTypes)) + " types checked for the CSV headers
 counter = 0
 counterFile = 0
 counterTableNum = 0
-for singleCommandLineArgument in commandLineArguments:
+for singleCommandLineArgument in columnIndexes:
 
     # Opens a new file for the create tables script
     fileName = str(counterFile) + '_create_' + str(counter) + "-" + str(singleCommandLineArgument) + fileExtension
@@ -181,11 +200,58 @@ for singleCommandLineArgument in commandLineArguments:
         createTableFile.write(singleHeader + ' ' + headersTypes[counterHeader] + ',\n')
         counterHeader += 1
 
+
     # Removes escape characters from last element
     tempString = ''.join(e for e in headersList[int(singleCommandLineArgument)] if e.isalnum())
 
-    # Closes the create table statement
-    createTableFile.write(tempString + " " + headersTypes[counterHeader])
+    # Prints the last element
+    createTableFile.write(tempString + " " + headersTypes[counterHeader] + ',\n')
+
+    # Printing the primary key of the table
+    createTableFile.write('PRIMARY KEY(')
+    tempString = ''.join(primaryKeyIndexes[counterTableNum])
+    primaryKeyList = tempString.split('_')
+    createTableFile.write(headersList[int(primaryKeyList[0])])
+    del primaryKeyList[0]
+    for singlePrimaryKeyColumn in primaryKeyList:
+        createTableFile.write(', ' + headersList[int(singlePrimaryKeyColumn)])
+
+    createTableFile.write(')')
+
+    # Printing the foreign keys of the table
+    tempString = ''.join(foreignKeyIndexes[counterTableNum])
+    foreignKeyList = tempString.split('_')
+
+    if(int(foreignKeyList[0]) != -1):
+
+        createTableFile.write(',\n')
+        createTableFile.write('FOREIGN KEY(')
+        firstCycle = True
+
+        for singleForeignKeyColumn in foreignKeyList:
+
+            if firstCycle:
+                createTableFile.write(headersList[int(singleForeignKeyColumn)])
+                firstCycle = False
+
+            else:
+                createTableFile.write(', ' + headersList[int(singleForeignKeyColumn)])
+
+        createTableFile.write(') REFERENCES(')
+        firstCycle = True
+
+        for singleForeignKeyColumn in foreignKeyList:
+
+            if firstCycle:
+                createTableFile.write(tableName + '_' + str(counterTableNum) + '.' + headersList[int(singleForeignKeyColumn)])
+                firstCycle = False
+
+            else:
+                createTableFile.write(', ' + tableName + '_' + str(counterTableNum) + '.' + headersList[int(singleForeignKeyColumn)])
+
+        createTableFile.write(')')
+
+    # Closes create table statement
     createTableFile.write('\n);')
 
     # Update the counters
@@ -216,7 +282,7 @@ for singleRow in rowsSplitted:
     counterFile = 0
     counterTableNum = 0
     # For each subdivision in input
-    for singleCommandLineArgument in commandLineArguments:
+    for singleCommandLineArgument in columnIndexes:
 
         # Opens a new file for the insert scripts
         fileName = str(counterFile) + '_insert_' + str(counter) + "-" + str(singleCommandLineArgument) + fileExtension
