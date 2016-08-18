@@ -109,6 +109,7 @@ rowsSplitted = []
 headersList = []
 headersTypes = []
 headersTypesBool = []
+headersTypesRelatedTableNum = []
 randomRow = random.randint(1, len(allLines)-2)
 #commandLineArguments = ''.join(sys.argv[2]).split(',')
 columnIndexes = []
@@ -138,7 +139,25 @@ firstLine = allLines[0].split(',')
 for singleAttribute in firstLine[0].split(';'):
     headersList.append(singleAttribute)
 
+
 print "[STATUS] Headers copied: " + str(len(headersList))
+
+counter = 0
+counterTableNum = 0
+# Appends the related table numbers for each header in the previous list
+for singleColumnIndex in columnIndexes:
+
+    for currentHeaderCounter in range(counter, int(singleColumnIndex)+1):
+
+        # Appends the related table number in a new list
+        headersTypesRelatedTableNum.append(counterTableNum)
+
+    # Updates the counters
+    counterTableNum += 1
+    counter = int(singleColumnIndex) + 1
+
+
+print "[STATUS] Table num headers appended: " + str(len(headersTypesRelatedTableNum))
 
 counter = 0
 # Create a list from the CSV file (each CSV row becomes an element)
@@ -222,12 +241,14 @@ for singleCommandLineArgument in columnIndexes:
     tempString = ''.join(foreignKeyIndexes[counterTableNum])
     foreignKeyList = tempString.split('_')
 
+    # Check if at least one foreign key is present
     if(int(foreignKeyList[0]) != -1):
 
         createTableFile.write(',\n')
         createTableFile.write('FOREIGN KEY(')
         firstCycle = True
 
+        # Writes the foreign keys that need to be referenced in the current table
         for singleForeignKeyColumn in foreignKeyList:
 
             if firstCycle:
@@ -237,18 +258,22 @@ for singleCommandLineArgument in columnIndexes:
             else:
                 createTableFile.write(', ' + headersList[int(singleForeignKeyColumn)])
 
+
+        # Reference clause
         createTableFile.write(') REFERENCES(')
         firstCycle = True
 
+        # Writes the reference for the foreign keys just printed
         for singleForeignKeyColumn in foreignKeyList:
 
             if firstCycle:
-                createTableFile.write(tableName + '_' + str(counterTableNum) + '.' + headersList[int(singleForeignKeyColumn)])
+                createTableFile.write(tableName + '_' + str(headersTypesRelatedTableNum[int(singleForeignKeyColumn)]) + '.' + headersList[int(singleForeignKeyColumn)])
                 firstCycle = False
 
             else:
-                createTableFile.write(', ' + tableName + '_' + str(counterTableNum) + '.' + headersList[int(singleForeignKeyColumn)])
+                createTableFile.write(', ' + tableName + '_' + str(headersTypesRelatedTableNum[int(singleForeignKeyColumn)]) + '.' + headersList[int(singleForeignKeyColumn)])
 
+        # Closes the foreign key statement
         createTableFile.write(')')
 
     # Closes create table statement
