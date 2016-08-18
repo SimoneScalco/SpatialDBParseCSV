@@ -211,12 +211,27 @@ for singleCommandLineArgument in columnIndexes:
     # Prints the create table statements
     createTableFile.write('CREATE TABLE ' + tableName + "_" + str(counterTableNum) + ' (\n')
 
+    # Adding primary keys as table attributes
+    tempString = ''.join(primaryKeyIndexes[counterTableNum])
+    primaryKeyList = tempString.split('_')
+
+    primaryKeyTemp=[]
+
+    for singlePrimaryKeyColumn in primaryKeyList:
+        print singlePrimaryKeyColumn
+        primaryKeyTemp.append(headersList[int(singlePrimaryKeyColumn)])
+        createTableFile.write(headersList[int(singlePrimaryKeyColumn)] + ' ' + headersTypes[int(singlePrimaryKeyColumn)] + ',\n')
+
+    #print headersList[int(counter):int(singleCommandLineArgument)+1]
+    #print primaryKeyTemp
     # Cycle variables
     counterHeader = counter
     counterRow = 0
     # Prints the headers names and their types
     for singleHeader in headersList[int(counter):int(singleCommandLineArgument)]:
-        createTableFile.write(singleHeader + ' ' + headersTypes[counterHeader] + ',\n')
+
+        if not singleHeader in primaryKeyTemp:
+            createTableFile.write(singleHeader + ' ' + headersTypes[counterHeader] + ',\n')
         counterHeader += 1
 
 
@@ -224,12 +239,11 @@ for singleCommandLineArgument in columnIndexes:
     tempString = ''.join(e for e in headersList[int(singleCommandLineArgument)] if e.isalnum())
 
     # Prints the last element
-    createTableFile.write(tempString + " " + headersTypes[counterHeader] + ',\n')
+    if not tempString in primaryKeyTemp:
+        createTableFile.write(tempString + " " + headersTypes[counterHeader] + ',\n')
 
     # Printing the primary key of the table
     createTableFile.write('PRIMARY KEY(')
-    tempString = ''.join(primaryKeyIndexes[counterTableNum])
-    primaryKeyList = tempString.split('_')
     createTableFile.write(headersList[int(primaryKeyList[0])])
     del primaryKeyList[0]
     for singlePrimaryKeyColumn in primaryKeyList:
