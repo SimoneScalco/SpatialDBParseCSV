@@ -4,6 +4,8 @@ import copy
 arguments=copy.copy(sys.argv)
 fileName=arguments[1]
 
+print '[STATUS 4]remapping table names...'
+
 del arguments[0]
 del arguments[0]
 
@@ -23,3 +25,5 @@ for line in lines:
     outputFile.write(line)
 
 outputFile.close()
+
+print '[STATUS 4]done'
