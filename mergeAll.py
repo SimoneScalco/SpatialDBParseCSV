@@ -1,6 +1,8 @@
 outputFile=open('results/DB.sql','w')
 inputFile=open("results/create_tables/DIRECTORY_MERGE.sql","r")
 
+print '[STATUS 5] merging DIRECTORY_MERGE files...'
+
 lines=inputFile.readlines()
 
 for line in lines:
@@ -16,3 +18,5 @@ for line in lines:
 
 inputFile.close()
 outputFile.close()
+
+print '[STATUS 5] done'
