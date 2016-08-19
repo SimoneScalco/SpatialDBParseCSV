@@ -49,45 +49,35 @@ def parseCharacters(singleElement):
 
         if singleCharacter == ';':
             insertValuesFile.write(', ')
-            insertValuesFileRaw.write(', ')
 
         elif singleCharacter == '\n' or singleCharacter == '\r':
             # Removes escape characters from last element
             insertValuesFile.write('')
-            insertValuesFileRaw.write('')
 
         elif singleCharacter == 'ü':
             # Removes non-ascii characters from the query
             insertValuesFile.write('u')
-            insertValuesFileRaw.write('u')
 
         elif singleCharacter == 'ß':
             insertValuesFile.write('ss')
-            insertValuesFileRaw.write('ss')
 
         elif singleCharacter == 'ö' or singleCharacter == 'ò':
             insertValuesFile.write('o')
-            insertValuesFileRaw.write('o')
 
         elif singleCharacter == 'é' or singleCharacter == 'è':
             insertValuesFile.write('e')
-            insertValuesFileRaw.write('e')
 
         elif singleCharacter == 'à':
             insertValuesFile.write('a')
-            insertValuesFileRaw.write('a')
 
         elif singleCharacter == 'ì':
             insertValuesFile.write('i')
-            insertValuesFileRaw.write('i')
 
         elif singleCharacter == 'ù':
             insertValuesFile.write('u')
-            insertValuesFileRaw.write('u')
 
         else:
             insertValuesFile.write(singleCharacter)
-            insertValuesFileRaw.write(singleCharacter)
 
 
 # Opens dataset
@@ -323,45 +313,75 @@ for singleRow in rowsSplitted:
     # For each subdivision in input
     for singleCommandLineArgument in columnIndexes:
 
+        dictionaryRow = {}
+        counterDictionary = counter
+        for singleHeader in headersList[counter:int(singleCommandLineArgument)+1]:
+
+            dictionaryRow[singleHeader] = singleRowListDivided[counterDictionary]
+
+            counterDictionary += 1
+
+        primaryKeyList = ''.join(primaryKeyIndexes[counterTableNum]).split('_')
+
+        for singlePrimaryKeyColumn in primaryKeyList:
+
+            dictionaryRow[headersList[int(singlePrimaryKeyColumn)]] = singleRowListDivided[int(singlePrimaryKeyColumn)]
+
+
+        '''foreignKeyList = ''.join(foreignKeyIndexes[counterTableNum]).split('_')
+
+        for singleForeignKeyColumn in foreignKeyList:
+
+            dictionaryRow[headersList[int(singleForeignKeyColumn)]] = singleRowListDivided[int(singleForeignKeyColumn)]
+        '''
+        print dictionaryRow
+
+
+
         # Opens a new file for the insert scripts
         fileName = str(counterFile) + '_insert_' + str(counter) + "-" + str(singleCommandLineArgument) + fileExtension
         insertValuesFile = open(directoryInsert + fileName, 'a')
-        insertValuesFileRaw = open(directoryInsertRaw + fileName, 'a')
 
         # Prints the insert statement
-        insertValuesFile.write('INSERT INTO ' + tableName + '_' + str(counterTableNum) + ' VALUES(')
+        insertValuesFile.write('INSERT INTO ' + tableName + '_' + str(counterTableNum) + '(')
+        firstCycle=True
 
+        for singleKey in dictionaryRow:
+
+            if firstCycle:
+                insertValuesFile.write(singleKey)
+                firstCycle=False
+            else:
+                insertValuesFile.write(', ' + singleKey)
+
+        insertValuesFile.write(') VALUES(')
 
         counterElementNum = counter
         # Check characters of every single element from the row
-        for singleElement in singleRowListDivided[counter:int(singleCommandLineArgument)+1]:
+        for singleElement in dictionaryRow:
 
             # Check if we need to write into a varchar
             if headersTypesBool[counterElementNum] == False:
 
                 insertValuesFile.write("\"")
-                insertValuesFileRaw.write("\"")
 
                 # Parse rare characters and substitute them
-                parseCharacters(singleElement)
+                parseCharacters(dictionaryRow[singleElement])
 
                 insertValuesFile.write("\"")
-                insertValuesFileRaw.write("\"")
 
             else:
                 # Parse rare characters and substitute them
-                parseCharacters(singleElement)
+                parseCharacters(dictionaryRow[singleElement])
 
             # Check if this is the last element that should be printed in the query
             if counterElementNum != int(singleCommandLineArgument):
                 insertValuesFile.write(', ')
-                insertValuesFileRaw.write(",")
 
             counterElementNum += 1
 
         # Closes the insert statement
         insertValuesFile.write(');\n')
-        insertValuesFileRaw.write("\n")
 
         # Update the counters
         counter = int(singleCommandLineArgument) + 1
@@ -371,7 +391,6 @@ for singleRow in rowsSplitted:
 
     # Close insert
     insertValuesFile.close()
-    insertValuesFileRaw.close()
 
 
 print "[STATUS] Insert queries have been written in '" + directoryInsert + "'"
