@@ -357,11 +357,18 @@ for singleRow in rowsSplitted:
         insertValuesFile.write(') VALUES(')
 
         counterElementNum = counter
+
+        firstCycle=True
         # Check characters of every single element from the row
         for singleElement in dictionaryRow:
 
+            if firstCycle:
+                firstCycle=False
+            else:
+                insertValuesFile.write(', ')
+
             # Check if we need to write into a varchar
-            if headersTypesBool[counterElementNum] == False:
+            if not str(dictionaryRow[singleElement]).isdigit():
 
                 insertValuesFile.write("\"")
 
@@ -375,8 +382,8 @@ for singleRow in rowsSplitted:
                 parseCharacters(dictionaryRow[singleElement])
 
             # Check if this is the last element that should be printed in the query
-            if counterElementNum != int(singleCommandLineArgument):
-                insertValuesFile.write(', ')
+            '''if counterElementNum != int(singleCommandLineArgument):
+                insertValuesFile.write(', ')'''
 
             counterElementNum += 1
 
