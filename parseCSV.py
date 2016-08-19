@@ -370,21 +370,18 @@ for singleRow in rowsSplitted:
             # Check if we need to write into a varchar
             if not str(dictionaryRow[singleElement]).isdigit():
 
-                insertValuesFile.write("\"")
+                insertValuesFile.write("'")
 
                 # Parse rare characters and substitute them
                 parseCharacters(dictionaryRow[singleElement])
 
-                insertValuesFile.write("\"")
+                insertValuesFile.write("'")
 
             else:
                 # Parse rare characters and substitute them
                 parseCharacters(dictionaryRow[singleElement])
 
-            # Check if this is the last element that should be printed in the query
-            '''if counterElementNum != int(singleCommandLineArgument):
-                insertValuesFile.write(', ')'''
-
+            # Update the counter of the elements
             counterElementNum += 1
 
         # Closes the insert statement
