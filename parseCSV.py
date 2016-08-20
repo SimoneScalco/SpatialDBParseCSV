@@ -342,7 +342,7 @@ for singleRow in rowsSplitted:
 
             dictionaryRow[headersList[int(singleColumnPrimaryKey)]] = singleRowListDivided[int(singleColumnPrimaryKey)]
 
-        print dictionaryRow
+        #print dictionaryRow
 
 
 
@@ -357,11 +357,14 @@ for singleRow in rowsSplitted:
         firstCycle=True
         for singleKey in dictionaryRow:
 
+            # Removes the possible escape characters in the strings
+            tempString = ''.join(e for e in singleKey if e.isalnum())
+
             if firstCycle:
-                insertValuesFile.write(singleKey)
+                insertValuesFile.write(tempString)
                 firstCycle=False
             else:
-                insertValuesFile.write(', ' + singleKey)
+                insertValuesFile.write(', ' + tempString)
 
         insertValuesFile.write(') VALUES(')
 
