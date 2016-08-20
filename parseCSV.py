@@ -194,10 +194,10 @@ print "[STATUS] " + str(len(headersTypes)) + " types checked for the CSV headers
 counter = 0
 counterFile = 0
 counterTableNum = 0
-for singleCommandLineArgument in columnIndexes:
+for singleColumnIndex in columnIndexes:
 
     # Opens a new file for the create tables script
-    fileName = str(counterFile) + '_create_' + str(counter) + "-" + str(singleCommandLineArgument) + fileExtension
+    fileName = str(counterFile) + '_create_' + str(counter) + "-" + str(singleColumnIndex) + fileExtension
     createTableFile = open(directoryCreate + fileName, 'w')
 
     # Prints the create table statements
@@ -221,7 +221,7 @@ for singleCommandLineArgument in columnIndexes:
     counterHeader = counter
     counterRow = 0
     # Prints the headers names and their types
-    for singleHeader in headersList[int(counter):int(singleCommandLineArgument)]:
+    for singleHeader in headersList[int(counter):int(singleColumnIndex)]:
 
         # Checks if the current header is in the list of the primary keys inserted before
         if not singleHeader in primaryKeysAlreadyWritten:
@@ -231,7 +231,7 @@ for singleCommandLineArgument in columnIndexes:
 
 
     # Removes escape characters from last element
-    tempString = ''.join(e for e in headersList[int(singleCommandLineArgument)] if e.isalnum())
+    tempString = ''.join(e for e in headersList[int(singleColumnIndex)] if e.isalnum())
 
     # Writes the last element in the create table file
     if not tempString in primaryKeysAlreadyWritten:
@@ -293,7 +293,7 @@ for singleCommandLineArgument in columnIndexes:
     createTableFile.write('\n);')
 
     # Update the counters
-    counter = int(singleCommandLineArgument)+1
+    counter = int(singleColumnIndex) + 1
     counterTableNum += 1
     counterFile += 1
 
@@ -309,7 +309,7 @@ print "[STATUS] Create table statements have been written in '" + directoryCreat
 ###############################################
 
 
-# Prints the all the insert statements in the file
+# Writes all the insert statements in the file
 for singleRow in rowsSplitted:
 
     # Convert the row list into string
@@ -320,18 +320,24 @@ for singleRow in rowsSplitted:
     counterFile = 0
     counterTableNum = 0
     # For each subdivision in input
-    for singleCommandLineArgument in columnIndexes:
+    for singleColumnIndex in columnIndexes:
 
+        # Dictionary used to track and write the insert values and their names in the same order
         dictionaryRow = {}
+
+
         counterDictionary = counter
-        for singleHeader in headersList[counter:int(singleCommandLineArgument)+1]:
+        # Inserting the headers and their values for the current row in the dictionary
+        for singleHeader in headersList[counter:int(singleColumnIndex)+1]:
 
             dictionaryRow[singleHeader] = singleRowListDivided[counterDictionary]
 
             counterDictionary += 1
 
+        # Re-building the primary key column indexes list (in fact the previous construction has been altered)
         primaryKeyColNumsSingleTable = ''.join(primaryKeyIndexes[counterTableNum]).split('_')
 
+        # Inserting the primary keys and their values for the current row in the dictionary
         for singleColumnPrimaryKey in primaryKeyColNumsSingleTable:
 
             dictionaryRow[headersList[int(singleColumnPrimaryKey)]] = singleRowListDivided[int(singleColumnPrimaryKey)]
@@ -341,13 +347,14 @@ for singleRow in rowsSplitted:
 
 
         # Opens a new file for the insert scripts
-        fileName = str(counterFile) + '_insert_' + str(counter) + "-" + str(singleCommandLineArgument) + fileExtension
+        fileName = str(counterFile) + '_insert_' + str(counter) + "-" + str(singleColumnIndex) + fileExtension
         insertValuesFile = open(directoryInsert + fileName, 'a')
 
-        # Prints the insert statement
+        # Writes the insert statement clause
         insertValuesFile.write('INSERT INTO ' + tableName + '_' + str(counterTableNum) + '(')
-        firstCycle=True
 
+        # Writing all the names and the values inserted in the dictionary
+        firstCycle=True
         for singleKey in dictionaryRow:
 
             if firstCycle:
@@ -359,9 +366,8 @@ for singleRow in rowsSplitted:
         insertValuesFile.write(') VALUES(')
 
         counterElementNum = counter
-
+        # Check characters of every single element extracted from the row
         firstCycle=True
-        # Check characters of every single element from the row
         for singleElement in dictionaryRow:
 
             if firstCycle:
@@ -390,7 +396,7 @@ for singleRow in rowsSplitted:
         insertValuesFile.write(');\n')
 
         # Update the counters
-        counter = int(singleCommandLineArgument) + 1
+        counter = int(singleColumnIndex) + 1
         counterTableNum += 1
         counterFile += 1
 
