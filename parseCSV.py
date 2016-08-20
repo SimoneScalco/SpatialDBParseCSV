@@ -79,6 +79,9 @@ def parseCharacters(singleElement):
         elif singleCharacter == 'ù':
             insertValuesFile.write('u')
 
+        elif singleCharacter == '\'':
+            insertValuesFile.write('\\\'')
+
         else:
             insertValuesFile.write(singleCharacter)
 
