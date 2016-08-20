@@ -32,8 +32,10 @@ def deleteFirstElement(s):
     del s[0]
 
 def varcharMaxLenght(rows,column):
+
     maxLenght=0
 
+    # Checks the maximum characters number in a specific varchar column
     for row in rows:
         riga=''.join(row).split(';')
         lungh=len(riga[column])
@@ -45,6 +47,7 @@ def varcharMaxLenght(rows,column):
 
 def parseCharacters(singleElement):
 
+    # Substitutes non-ASCII characters with their safe representation
     for singleCharacter in singleElement:
 
         if singleCharacter == ';':
@@ -98,10 +101,9 @@ tableName = "census_area"
 rowsSplitted = []
 headersList = []
 headersTypes = []
-headersTypesBool = []
+headersTypesIsInteger = []
 headersTypesRelatedTableNum = []
 randomRow = random.randint(1, len(allLines)-2)
-#commandLineArguments = ''.join(sys.argv[2]).split(',')
 columnIndexes = []
 primaryKeyIndexes = []
 foreignKeyIndexes = []
@@ -173,11 +175,11 @@ for singleHeader in headersList:
         else:
             headersTypes.append("integer")
 
-        headersTypesBool.append(True)
+        headersTypesIsInteger.append(True)
 
     else:
-        headersTypes.append("varchar("+str(varcharMaxLenght(rowsSplitted,counterColumn)+1)+")")
-        headersTypesBool.append(False)
+        headersTypes.append("varchar(" + str(varcharMaxLenght(rowsSplitted,counterColumn) + 1) + ")")
+        headersTypesIsInteger.append(False)
 
     counterColumn += 1
 
@@ -201,81 +203,88 @@ for singleCommandLineArgument in columnIndexes:
     # Prints the create table statements
     createTableFile.write('CREATE TABLE ' + tableName + "_" + str(counterTableNum) + ' (\n')
 
-    # Adding primary keys as table attributes
+    # Gets the list of column indexes related to the primary keys for the current table
     tempString = ''.join(primaryKeyIndexes[counterTableNum])
-    primaryKeyList = tempString.split('_')
+    primaryKeyColNumsSingleTable = tempString.split('_')
 
-    primaryKeyTemp=[]
+    primaryKeysAlreadyWritten=[]
 
-    for singlePrimaryKeyColumn in primaryKeyList:
-        print singlePrimaryKeyColumn
-        primaryKeyTemp.append(headersList[int(singlePrimaryKeyColumn)])
-        createTableFile.write(headersList[int(singlePrimaryKeyColumn)] + ' ' + headersTypes[int(singlePrimaryKeyColumn)] + ',\n')
+    for singleColumnPrimaryKey in primaryKeyColNumsSingleTable:
 
-    #print headersList[int(counter):int(singleCommandLineArgument)+1]
-    #print primaryKeyTemp
-    # Cycle variables
+        # Appends the name of the column in the temporary list
+        primaryKeysAlreadyWritten.append(headersList[int(singleColumnPrimaryKey)])
+
+        # Writes the name of the column of the primary key in the create table file
+        createTableFile.write(headersList[int(singleColumnPrimaryKey)] + ' ' + headersTypes[int(singleColumnPrimaryKey)] + ',\n')
+
+
     counterHeader = counter
     counterRow = 0
     # Prints the headers names and their types
     for singleHeader in headersList[int(counter):int(singleCommandLineArgument)]:
 
-        if not singleHeader in primaryKeyTemp:
+        # Checks if the current header is in the list of the primary keys inserted before
+        if not singleHeader in primaryKeysAlreadyWritten:
             createTableFile.write(singleHeader + ' ' + headersTypes[counterHeader] + ',\n')
+
         counterHeader += 1
 
 
     # Removes escape characters from last element
     tempString = ''.join(e for e in headersList[int(singleCommandLineArgument)] if e.isalnum())
 
-    # Prints the last element
-    if not tempString in primaryKeyTemp:
+    # Writes the last element in the create table file
+    if not tempString in primaryKeysAlreadyWritten:
         createTableFile.write(tempString + " " + headersTypes[counterHeader] + ',\n')
 
-    # Printing the primary key of the table
+
+    # Writes the primary keys of the table in the file
     createTableFile.write('PRIMARY KEY(')
-    createTableFile.write(headersList[int(primaryKeyList[0])])
-    del primaryKeyList[0]
-    for singlePrimaryKeyColumn in primaryKeyList:
-        createTableFile.write(', ' + headersList[int(singlePrimaryKeyColumn)])
+    createTableFile.write(headersList[int(primaryKeyColNumsSingleTable[0])])
+    deleteFirstElement(primaryKeyColNumsSingleTable)
+    for singleColumnPrimaryKey in primaryKeyColNumsSingleTable:
+        createTableFile.write(', ' + headersList[int(singleColumnPrimaryKey)])
 
     createTableFile.write(')')
 
-    # Printing the foreign keys of the table
+    # Gets the list of column indexes related to the foreign keys for the current table
     tempString = ''.join(foreignKeyIndexes[counterTableNum])
-    foreignKeyList = tempString.split('_')
+    foreignKeyColNumsSingleTable = tempString.split('_')
 
-    # Check if at least one foreign key is present
-    if(int(foreignKeyList[0]) != -1):
+    # Check if at least one foreign key is present (if it's different than -1)
+    if(int(foreignKeyColNumsSingleTable[0]) != -1):
 
+        # Foreign key clause
         createTableFile.write(',\n')
         createTableFile.write('FOREIGN KEY(')
+
         firstCycle = True
 
-        # Writes the foreign keys that need to be referenced in the current table
-        for singleForeignKeyColumn in foreignKeyList:
+        # Writes the name of the column of the foreign key in the create table file
+        for singleColumnForeignKey in foreignKeyColNumsSingleTable:
 
             if firstCycle:
-                createTableFile.write(headersList[int(singleForeignKeyColumn)])
+                createTableFile.write(headersList[int(singleColumnForeignKey)])
                 firstCycle = False
 
             else:
-                createTableFile.write(', ' + headersList[int(singleForeignKeyColumn)])
+                createTableFile.write(', ' + headersList[int(singleColumnForeignKey)])
 
 
         # Reference clause
-        createTableFile.write(') REFERENCES ' + tableName + '_' + str(headersTypesRelatedTableNum[int(singleForeignKeyColumn)]) + ' (')
+        createTableFile.write(') REFERENCES ' + tableName + '_' + str(headersTypesRelatedTableNum[int(singleColumnForeignKey)]) + ' (')
+
         firstCycle = True
 
-        # Writes the reference for the foreign keys just printed
-        for singleForeignKeyColumn in foreignKeyList:
+        # Writes the references for the foreign keys just printed
+        for singleColumnForeignKey in foreignKeyColNumsSingleTable:
 
             if firstCycle:
-                createTableFile.write(headersList[int(singleForeignKeyColumn)])
+                createTableFile.write(headersList[int(singleColumnForeignKey)])
                 firstCycle = False
 
             else:
-                createTableFile.write(', ' + headersList[int(singleForeignKeyColumn)])
+                createTableFile.write(', ' + headersList[int(singleColumnForeignKey)])
 
         # Closes the foreign key statement
         createTableFile.write(')')
@@ -321,19 +330,12 @@ for singleRow in rowsSplitted:
 
             counterDictionary += 1
 
-        primaryKeyList = ''.join(primaryKeyIndexes[counterTableNum]).split('_')
+        primaryKeyColNumsSingleTable = ''.join(primaryKeyIndexes[counterTableNum]).split('_')
 
-        for singlePrimaryKeyColumn in primaryKeyList:
+        for singleColumnPrimaryKey in primaryKeyColNumsSingleTable:
 
-            dictionaryRow[headersList[int(singlePrimaryKeyColumn)]] = singleRowListDivided[int(singlePrimaryKeyColumn)]
+            dictionaryRow[headersList[int(singleColumnPrimaryKey)]] = singleRowListDivided[int(singleColumnPrimaryKey)]
 
-
-        '''foreignKeyList = ''.join(foreignKeyIndexes[counterTableNum]).split('_')
-
-        for singleForeignKeyColumn in foreignKeyList:
-
-            dictionaryRow[headersList[int(singleForeignKeyColumn)]] = singleRowListDivided[int(singleForeignKeyColumn)]
-        '''
         print dictionaryRow
 
 
