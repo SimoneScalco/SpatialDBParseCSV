@@ -1,10 +1,15 @@
 
+import sys
+
+# Gets the input file name
+inputFileName = sys.argv[1]
+outputFileName = sys.argv[2]
+
 # Output file handler
-outputFileName = 'results/DB.sql'
-outputFile=open(outputFileName,'w')
+outputFile=open('results/' + outputFileName,'w')
 
 # First input file handler (create tables directory)
-inputFile=open("results/create_tables/DIRECTORY_MERGE.sql","r")
+inputFile=open('results/create_tables/' + inputFileName,'r')
 
 print '[STATUS 5] Merging DIRECTORY_MERGE files...'
 
@@ -19,7 +24,7 @@ inputFile.close()
 
 
 # Second input file handler (insert queries directory)
-inputFile=open('results/insert_queries/DIRECTORY_MERGE.sql','r')
+inputFile=open('results/insert_queries/' + inputFileName,'r')
 
 # Gets all the lines from the input file
 lines=inputFile.readlines()

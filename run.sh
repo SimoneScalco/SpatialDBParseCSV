@@ -36,4 +36,4 @@ python remap.py results/create_tables/DIRECTORY_MERGE.sql census_area_0:COMUNI c
 python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:COMUNI census_area_1:PONGO census_area_5:PROSCIUTTO
 
 #Merge all DIRECTORY_MERGE
-python mergeAll.py
+python mergeAll.py DIRECTORY_MERGE.sql DB.sql
