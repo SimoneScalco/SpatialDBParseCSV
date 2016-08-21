@@ -37,3 +37,5 @@ python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:COMUNI 
 
 #Merge all DIRECTORY_MERGE
 python mergeAll.py DIRECTORY_MERGE.sql DB.sql
+
+python getRawData.py results/insert_queries/
