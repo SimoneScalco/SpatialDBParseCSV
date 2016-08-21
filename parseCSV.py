@@ -381,19 +381,22 @@ for singleRow in rowsSplitted:
             else:
                 insertValuesFile.write(', ')
 
+            # Removes the possible escape characters in the strings
+            tempString = ''.join(e for e in dictionaryRow[singleElement] if e.isalnum())
+
             # Check if we need to write into a varchar
-            if not str(dictionaryRow[singleElement]).isdigit():
+            if not str(tempString).isdigit():
 
                 insertValuesFile.write("'")
 
                 # Parse rare characters and substitute them
-                parseCharacters(dictionaryRow[singleElement])
+                parseCharacters(tempString)
 
                 insertValuesFile.write("'")
 
             else:
                 # Parse rare characters and substitute them
-                parseCharacters(dictionaryRow[singleElement])
+                parseCharacters(tempString)
 
             # Update the counter of the elements
             counterElementNum += 1
