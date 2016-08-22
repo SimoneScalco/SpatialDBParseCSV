@@ -353,11 +353,17 @@ for singleRow in rowsSplitted:
 
         # Re-building the primary key column indexes list (in fact the previous construction has been altered)
         primaryKeyColNumsSingleTable = ''.join(primaryKeyIndexes[counterTableNum]).split('_')
+        foreignKeyColNumsSingleTable = ''.join(foreignKeyIndexes[counterTableNum]).split('_')
 
         # Inserting the primary keys and their values for the current row in the dictionary
         for singleColumnPrimaryKey in primaryKeyColNumsSingleTable:
 
             dictionaryRow[headersList[int(singleColumnPrimaryKey)]] = singleRowListDivided[int(singleColumnPrimaryKey)]
+
+        # Inserting the foreign keys and their values for the current row in the dictionary
+        for singleColumnForeignKey in foreignKeyColNumsSingleTable:
+            dictionaryRow[headersList[int(singleColumnForeignKey)]] = singleRowListDivided[
+                int(singleColumnForeignKey)]
 
         #print dictionaryRow
 
