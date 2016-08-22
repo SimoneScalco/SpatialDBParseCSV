@@ -227,11 +227,14 @@ for singleColumnIndex in columnIndexes:
     for singleColumnForeignKey in foreignKeyColNumsSingleTable:
 
         if int(singleColumnForeignKey) != -1:
-            # Appends the name of the column in the temporary list
-            foreignKeysAlreadyWritten.append(headersList[int(singleColumnForeignKey)])
 
-            # Writes the name of the column of the foreign key in the create table file
-            createTableFile.write(headersList[int(singleColumnForeignKey)] + ' ' + headersTypes[int(singleColumnForeignKey)] + ',\n')
+            if not singleColumnForeignKey in primaryKeyColNumsSingleTable:
+
+                # Appends the name of the column in the temporary list
+                foreignKeysAlreadyWritten.append(headersList[int(singleColumnForeignKey)])
+
+                # Writes the name of the column of the foreign key in the create table file
+                createTableFile.write(headersList[int(singleColumnForeignKey)] + ' ' + headersTypes[int(singleColumnForeignKey)] + ',\n')
 
     print foreignKeysAlreadyWritten
 
