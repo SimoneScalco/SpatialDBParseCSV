@@ -407,10 +407,10 @@ for singleRow in rowsSplitted:
                 insertValuesFile.write(', ')
 
             # Removes the possible escape characters in the strings
-            tempString = ''.join(e for e in dictionaryRow[singleElement] if e.isalnum())
+            tempString = ''.join(e for e in dictionaryRow[singleElement] if e.isalnum() or e == ' ')
 
             # Check if we need to write into a varchar
-            if not str(tempString).isdigit():
+            if not (str(tempString).isdigit()):
 
                 insertValuesFile.write("'")
 
@@ -418,6 +418,10 @@ for singleRow in rowsSplitted:
                 parseCharacters(tempString)
 
                 insertValuesFile.write("'")
+
+            elif str(tempString) == '-':
+
+                insertValuesFile.write('NULL')
 
             else:
                 # Parse rare characters and substitute them
