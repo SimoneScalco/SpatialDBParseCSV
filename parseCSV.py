@@ -210,7 +210,11 @@ for singleColumnIndex in columnIndexes:
     tempString = ''.join(primaryKeyIndexes[counterTableNum])
     primaryKeyColNumsSingleTable = tempString.split('_')
 
+    tempString = ''.join(foreignKeyIndexes[counterTableNum])
+    foreignKeyColNumsSingleTable = tempString.split('_')
+
     primaryKeysAlreadyWritten=[]
+    foreignKeysAlreadyWritten=[]
 
     for singleColumnPrimaryKey in primaryKeyColNumsSingleTable:
 
@@ -220,6 +224,16 @@ for singleColumnIndex in columnIndexes:
         # Writes the name of the column of the primary key in the create table file
         createTableFile.write(headersList[int(singleColumnPrimaryKey)] + ' ' + headersTypes[int(singleColumnPrimaryKey)] + ',\n')
 
+    for singleColumnForeignKey in foreignKeyColNumsSingleTable:
+
+        if int(singleColumnForeignKey) != -1:
+            # Appends the name of the column in the temporary list
+            foreignKeysAlreadyWritten.append(headersList[int(singleColumnForeignKey)])
+
+            # Writes the name of the column of the foreign key in the create table file
+            createTableFile.write(headersList[int(singleColumnForeignKey)] + ' ' + headersTypes[int(singleColumnForeignKey)] + ',\n')
+
+    print foreignKeysAlreadyWritten
 
     counterHeader = counter
     counterRow = 0
@@ -227,7 +241,7 @@ for singleColumnIndex in columnIndexes:
     for singleHeader in headersList[int(counter):int(singleColumnIndex)]:
 
         # Checks if the current header is in the list of the primary keys inserted before
-        if not singleHeader in primaryKeysAlreadyWritten:
+        if not (singleHeader in primaryKeysAlreadyWritten or singleHeader in foreignKeysAlreadyWritten):
             createTableFile.write(singleHeader + ' ' + headersTypes[counterHeader] + ',\n')
 
         counterHeader += 1
@@ -237,7 +251,7 @@ for singleColumnIndex in columnIndexes:
     tempString = ''.join(e for e in headersList[int(singleColumnIndex)] if e.isalnum())
 
     # Writes the last element in the create table file
-    if not tempString in primaryKeysAlreadyWritten:
+    if not (tempString in primaryKeysAlreadyWritten or tempString in foreignKeysAlreadyWritten):
         createTableFile.write(tempString + " " + headersTypes[counterHeader] + ',\n')
 
 
