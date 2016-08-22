@@ -412,12 +412,15 @@ for singleRow in rowsSplitted:
             # Check if we need to write into a varchar
             if not (str(tempString).isdigit()):
 
-                insertValuesFile.write("'")
+                if tempString!='':
+                    insertValuesFile.write("'")
 
-                # Parse rare characters and substitute them
-                parseCharacters(tempString)
+                    # Parse rare characters and substitute them
+                    parseCharacters(tempString)
 
-                insertValuesFile.write("'")
+                    insertValuesFile.write("'")
+                else:
+                    insertValuesFile.write('NULL')
 
             elif str(tempString) == '-':
 
