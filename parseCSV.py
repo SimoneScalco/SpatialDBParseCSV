@@ -365,8 +365,10 @@ for singleRow in rowsSplitted:
 
         # Inserting the foreign keys and their values for the current row in the dictionary
         for singleColumnForeignKey in foreignKeyColNumsSingleTable:
-            dictionaryRow[headersList[int(singleColumnForeignKey)]] = singleRowListDivided[
-                int(singleColumnForeignKey)]
+
+            if int(singleColumnForeignKey) != -1:
+                dictionaryRow[headersList[int(singleColumnForeignKey)]] = singleRowListDivided[
+                    int(singleColumnForeignKey)]
 
         #print dictionaryRow
 
