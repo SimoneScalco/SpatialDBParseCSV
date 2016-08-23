@@ -86,6 +86,16 @@ def parseCharacters(singleElement):
             insertValuesFile.write(singleCharacter)
 
 
+def isAllowedCharacter(e):
+
+    allowedCharactersList = [' ', '-', '/', '\'', ';', 'ü', 'ß', 'ö', 'ò', 'é', 'è', 'à', 'ì', 'ù']
+
+    if e.isalnum() or e in allowedCharactersList:
+        return True
+
+    else:
+        return False
+
 # Opens dataset
 datasetFileName = sys.argv[1]
 datasetFile = open(str(datasetFileName), 'r')
@@ -407,7 +417,7 @@ for singleRow in rowsSplitted:
                 insertValuesFile.write(', ')
 
             # Removes the possible escape characters in the strings
-            tempString = ''.join(e for e in dictionaryRow[singleElement] if e.isalnum() or e == ' ')
+            tempString = ''.join(e for e in dictionaryRow[singleElement])
 
             # Check if we need to write into a varchar
             if not (str(tempString).isdigit()):
