@@ -80,7 +80,7 @@ def parseCharacters(singleElement):
             insertValuesFile.write('u')
 
         elif singleCharacter == '\'':
-            insertValuesFile.write('\\\'')
+            insertValuesFile.write('\'\'')
 
         else:
             insertValuesFile.write(singleCharacter)
@@ -423,18 +423,26 @@ for singleRow in rowsSplitted:
             if not (str(tempString).isdigit()):
 
                 if tempString!='':
-                    insertValuesFile.write("'")
 
-                    # Parse rare characters and substitute them
-                    parseCharacters(tempString)
+                    if tempString != 'null':
 
-                    insertValuesFile.write("'")
+                        insertValuesFile.write("'")
+
+                        # Parse rare characters and substitute them
+                        parseCharacters(tempString)
+
+                        insertValuesFile.write("'")
+
+                    else:
+
+                        insertValuesFile.write('NULL')
+
                 else:
                     insertValuesFile.write('NULL')
 
-            elif str(tempString) == '-':
+            #elif str(tempString) == '-':
 
-                insertValuesFile.write('NULL')
+                #insertValuesFile.write('NULL')
 
             else:
                 # Parse rare characters and substitute them
