@@ -9,7 +9,9 @@ mkdir results/create_tables
 mkdir results/insert_queries
 mkdir results/insert_queries/raw
 
-##################areecensimento########################àà
+###############################################
+############## AREECENSIMENTO #################
+###############################################
 
 # Parses the CSV file and specifies the column division
 python parseCSV.py R04_indicatori_2011_areecensimento.csv 6,6,-1 83,7_6,6 98,7_6,6 104,7_6,6 116,7_6,6 147,7_6,6
@@ -29,7 +31,7 @@ python remap.py results/create_tables/DIRECTORY_MERGE.sql census_area_0:COMUNI c
 python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:COMUNI census_area_1:POPOLAZIONE_RESIDENTE census_area_2:STRANIERI_RESIDENTI census_area_3:ABITAZIONI census_area_4:FAMIGLIE census_area_5:EDIFICI
 
 #Merge all DIRECTORY_MERGE
-python mergeAll.py DIRECTORY_MERGE.sql DB_areecensimento.sql
+python mergeAll.py DIRECTORY_MERGE.sql DB_areecensimento.sql drop_all_tables.sql
 
 # Gets raw data from the insert queries
 python getRawData.py results/insert_queries/
@@ -58,7 +60,7 @@ python remap.py results/create_tables/DIRECTORY_MERGE.sql census_area_0:COMUNI c
 python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:COMUNI census_area_1:LOCALITA census_area_2:POPOLAZIONE_RESIDENTE census_area_3:STRANIERI_RESIDENTI census_area_4:ABITAZIONI census_area_5:FAMIGLIE census_area_6:EDIFICI
 
 #Merge all DIRECTORY_MERGE
-python mergeAll.py DIRECTORY_MERGE.sql DB_località.sql
+python mergeAll.py DIRECTORY_MERGE.sql DB_località.sql drop_all_tables.sql
 
 
 ###############################################
@@ -84,4 +86,4 @@ python remap.py results/create_tables/DIRECTORY_MERGE.sql census_area_0:COMUNI c
 python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:COMUNI census_area_1:SEZIONI census_area_2:POPOLAZIONE_RESIDENTE census_area_3:STRANIERI_RESIDENTI census_area_4:ABITAZIONI census_area_5:FAMIGLIE census_area_6:EDIFICI
 
 #Merge all DIRECTORY_MERGE
-python mergeAll.py DIRECTORY_MERGE.sql DB_sezioni.sql
+python mergeAll.py DIRECTORY_MERGE.sql DB_sezioni.sql drop_all_tables.sql

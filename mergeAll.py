@@ -11,6 +11,24 @@ outputFile=open('results/' + outputFileName,'w')
 # First input file handler (create tables directory)
 inputFile=open('results/create_tables/' + inputFileName,'r')
 
+# Optional input parameters
+if len(sys.argv) > 3:
+
+    # Gets the script name and opens the file
+    inputSQLClearScriptName = sys.argv[3]
+    inputSQLClearScript = open('Scripts_vari/' + inputSQLClearScriptName, 'r')
+
+    # Reads all the lines in the file
+    lines = inputSQLClearScript.readlines()
+
+    # Writes all the data just read to the output file
+    for line in lines:
+        outputFile.write(line)
+
+    outputFile.write('\n\n\n')
+
+    inputSQLClearScript.close()
+
 print '[STATUS 5] Merging DIRECTORY_MERGE files...'
 
 # Gets all the lines from the input file
