@@ -377,8 +377,7 @@ for singleRow in rowsSplitted:
         for singleColumnForeignKey in foreignKeyColNumsSingleTable:
 
             if int(singleColumnForeignKey) != -1:
-                dictionaryRow[headersList[int(singleColumnForeignKey)]] = singleRowListDivided[
-                    int(singleColumnForeignKey)]
+                dictionaryRow[headersList[int(singleColumnForeignKey)]] = singleRowListDivided[int(singleColumnForeignKey)]
 
         #print dictionaryRow
 
@@ -418,9 +417,10 @@ for singleRow in rowsSplitted:
 
             # Removes the possible escape characters in the strings
             tempString = ''.join(e for e in dictionaryRow[singleElement])
+            sanitizedValue = ''.join(e for e in dictionaryRow[singleElement] if e.isalnum())
 
             # Check if we need to write into a varchar
-            if not (str(tempString).isdigit()):
+            if not (str(sanitizedValue).isdigit()):
 
                 if tempString != '' and tempString !='null' and tempString != '-':
 
