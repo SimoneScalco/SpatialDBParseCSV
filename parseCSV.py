@@ -14,18 +14,23 @@ def checkIfInteger(s):
     except ValueError:
         return False
 
-def detectPSQLOverflow(i):
+def detectPSQLOverflow(rows,column):
 
-    # Gets the integer value from the object representation
-    mayOverflow = int(i)
+    isBigint=False;
 
-    # Checks if the integer does not overflow the 32-bit representation of PostgreSQL
-    if mayOverflow > 2147483647:
-        print "[ALERT] Integer value " + str(i) + " may overflow in DB insertion. Converting to bigint..."
-        return True
+    for row in rows:
+        riga = ''.join(row).split(';')
 
-    else:
-        return False
+        if riga[column]!='' and riga[column]!='null' and riga[column]!= '-':
+            # Checks if the integer does not overflow the 32-bit representation of PostgreSQL
+            if int(riga[column]) > 2147483647:
+                isBigint=True
+                break
+
+
+
+    return isBigint
+
 
 # Function that deletes the first element of a list
 def deleteFirstElement(s):
@@ -182,7 +187,7 @@ for singleHeader in headersList:
 
     if checkIfInteger(singleRow[counterColumn]):
 
-        if detectPSQLOverflow(singleRow[counterColumn]):
+        if detectPSQLOverflow(rowsSplitted,counterColumn):
             headersTypes.append("bigint")
 
         else:
