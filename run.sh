@@ -87,3 +87,29 @@ python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:COMUNI 
 
 #Merge all DIRECTORY_MERGE
 python mergeAll.py DIRECTORY_MERGE.sql DB_sezioni.sql drop_all_tables.sql
+
+
+###############################################
+########### LOCALITA EXTRA ####################
+###############################################
+
+./clearResults.sh
+
+python parseCSV.py Elenco_comuni_2011.csv 22,5,-1
+
+# Merges the files contained in the first subdirectory
+python mergeFiles.py results/create_tables/ .sql
+
+# Merges the files contained in the second subdirectory
+python mergeFiles.py results/insert_queries/ .sql
+
+#Remove duplicates
+python removeDuplicates.py results/insert_queries/DIRECTORY_MERGE.sql
+
+#Remapping table names
+python remap.py results/create_tables/DIRECTORY_MERGE.sql census_area_0:LOC_EXTRA
+
+python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:LOC_EXTRA
+
+#Merge all DIRECTORY_MERGE
+python mergeAll.py DIRECTORY_MERGE.sql DB_EXTRA_elenco_comuni.sql drop_all_tables.sql
