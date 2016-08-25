@@ -400,7 +400,7 @@ for singleRow in rowsSplitted:
         for singleKey in dictionaryRow:
 
             # Removes the possible escape characters in the strings
-            tempString = ''.join(e for e in singleKey if e.isalnum())
+            tempString = ''.join(e for e in singleKey if e.isalnum() or e == '_')
 
             if firstCycle:
                 insertValuesFile.write(tempString)

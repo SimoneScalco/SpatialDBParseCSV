@@ -95,7 +95,7 @@ python mergeAll.py DIRECTORY_MERGE.sql DB_sezioni.sql drop_all_tables.sql
 
 ./clearResults.sh
 
-python parseCSV.py Elenco_comuni_2011.csv 22,5,-1
+python parseCSV.py Elenco_comuni_2011.csv 24,6,-1
 
 # Merges the files contained in the first subdirectory
 python mergeFiles.py results/create_tables/ .sql
@@ -107,9 +107,10 @@ python mergeFiles.py results/insert_queries/ .sql
 python removeDuplicates.py results/insert_queries/DIRECTORY_MERGE.sql
 
 #Remapping table names
-python remap.py results/create_tables/DIRECTORY_MERGE.sql census_area_0:LOC_EXTRA
+python remap.py results/create_tables/DIRECTORY_MERGE.sql census_area_0:LOC_EXTRA "SUPERFICIE (in KMQ):SUPERFICIE_KMQ"
 
-python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:LOC_EXTRA
+python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:LOC_EXTRA "SUPERFICIE (in KMQ):SUPERFICIE_KMQ" SUPERFICIEinKMQ:SUPERFICIE_KMQ
+
 
 #Merge all DIRECTORY_MERGE
 python mergeAll.py DIRECTORY_MERGE.sql DB_EXTRA_elenco_comuni.sql drop_all_tables.sql
