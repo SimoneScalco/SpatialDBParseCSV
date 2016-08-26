@@ -95,7 +95,10 @@ python mergeAll.py DIRECTORY_MERGE.sql DB_sezioni.sql drop_all_tables.sql
 
 ./clearResults.sh
 
-python parseCSV.py Elenco_comuni_2011.csv 24,6,-1
+cp Elenco_comuni_2011.csv results/.
+python remap.py results/Elenco_comuni_2011.csv ",:."
+
+python parseCSV.py results/Elenco_comuni_2011.csv 24,6,-1
 
 # Merges the files contained in the first subdirectory
 python mergeFiles.py results/create_tables/ .sql

@@ -17,7 +17,7 @@ def checkIfInteger(s):
 def checkIfFloat(s):
 
     for e in s:
-        if e == ',':
+        if e == '.':
             return True
 
     return False
