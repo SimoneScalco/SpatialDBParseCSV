@@ -1,6 +1,7 @@
 # coding=ISO-8859-1
 import random
 import sys
+import re
 
 # Load the correct encoding
 reload(sys)
@@ -16,11 +17,13 @@ def checkIfInteger(s):
 
 def checkIfFloat(s):
 
-    for e in s:
+    reg=re.compile('[0-9]+\.[0-9]+')
+    '''for e in s:
         if e == '.':
             return True
 
-    return False
+    return False'''
+    return reg.match(s)!=None
 
 def detectPSQLOverflow(rows,column):
 
