@@ -14,6 +14,14 @@ def checkIfInteger(s):
     except ValueError:
         return False
 
+def checkIfFloat(s):
+
+    for e in s:
+        if e == ',':
+            return True
+
+    return False
+
 def detectPSQLOverflow(rows,column):
 
     isBigint=False;
@@ -185,7 +193,11 @@ for singleHeader in headersList:
 
     singleRow = ''.join(rowsSplitted[randomRow]).split(';')
 
-    if checkIfInteger(singleRow[counterColumn]):
+    if checkIfFloat(singleRow[counterColumn]):
+
+        headersTypes.append("decimal")
+
+    elif checkIfInteger(singleRow[counterColumn]):
 
         if detectPSQLOverflow(rowsSplitted,counterColumn):
             headersTypes.append("bigint")
@@ -266,7 +278,7 @@ for singleColumnIndex in columnIndexes:
 
 
     # Removes escape characters from last element
-    tempString = ''.join(e for e in headersList[int(singleColumnIndex)] if e.isalnum())
+    tempString = ''.join(e for e in headersList[int(singleColumnIndex)] if e.isalnum() or e == '_')
 
     # Writes the last element in the create table file
     if not (tempString in primaryKeysAlreadyWritten or tempString in foreignKeysAlreadyWritten):
@@ -419,10 +431,10 @@ for singleRow in rowsSplitted:
                 firstCycle=False
             else:
                 insertValuesFile.write(', ')
-
+            #print tempString
             # Removes the possible escape characters in the strings
             tempString = ''.join(e for e in dictionaryRow[singleElement])
-            sanitizedValue = ''.join(e for e in dictionaryRow[singleElement] if e.isalnum())
+            sanitizedValue = ''.join(e for e in dictionaryRow[singleElement] if e.isalnum() or e == ',')
 
             # Check if we need to write into a varchar
             if not (str(sanitizedValue).isdigit()):

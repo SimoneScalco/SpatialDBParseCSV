@@ -114,3 +114,29 @@ python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:LOC_EXT
 
 #Merge all DIRECTORY_MERGE
 python mergeAll.py DIRECTORY_MERGE.sql DB_EXTRA_elenco_comuni.sql drop_all_tables.sql
+
+
+###############################################
+################# LOCALITA ####################
+###############################################
+
+./clearResults.sh
+
+python parseCSV.py joint_loc_coor.csv 6,6,-1 13,7,6 89,7,7 104,7,7 110,7,7 122,7,7 153,7,7 178,6,6
+
+# Merges the files contained in the first subdirectory
+python mergeFiles.py results/create_tables/ .sql
+
+# Merges the files contained in the second subdirectory
+python mergeFiles.py results/insert_queries/ .sql
+
+#Remove duplicates
+python removeDuplicates.py results/insert_queries/DIRECTORY_MERGE.sql
+
+#Remapping table names
+python remap.py results/create_tables/DIRECTORY_MERGE.sql census_area_0:COMUNI census_area_1:LOCALITA census_area_2:POPOLAZIONE_RESIDENTE census_area_3:STRANIERI_RESIDENTI census_area_4:ABITAZIONI census_area_5:FAMIGLIE census_area_6:EDIFICI census_area_7:INFO_LOCALITA
+
+python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:COMUNI census_area_1:LOCALITA census_area_2:POPOLAZIONE_RESIDENTE census_area_3:STRANIERI_RESIDENTI census_area_4:ABITAZIONI census_area_5:FAMIGLIE census_area_6:EDIFICI census_area_7:INFO_LOCALITA
+
+#Merge all DIRECTORY_MERGE
+python mergeAll.py DIRECTORY_MERGE.sql DB_località_final.sql drop_all_tables.sql
