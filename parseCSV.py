@@ -442,8 +442,11 @@ for singleRow in rowsSplitted:
             sanitizedValue = ''.join(e for e in dictionaryRow[singleElement] if e.isalnum() or e == ',' or e == '.')
 
             # Check if we need to write into a varchar
-            if not (str(sanitizedValue).isdigit()):
-
+            #if not (str(sanitizedValue).isdigit()):
+            if checkIfFloat(str(sanitizedValue)) or checkIfInteger(str(sanitizedValue)):
+                # Parse rare characters and substitute them
+                parseCharacters(tempString)
+            else:
                 if tempString != '' and tempString !='null' and tempString != '-':
 
                     insertValuesFile.write("'")
@@ -461,9 +464,7 @@ for singleRow in rowsSplitted:
 
                 #insertValuesFile.write('NULL')
 
-            else:
-                # Parse rare characters and substitute them
-                parseCharacters(tempString)
+
 
             # Update the counter of the elements
             counterElementNum += 1
