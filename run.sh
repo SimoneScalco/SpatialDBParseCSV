@@ -96,7 +96,7 @@ python mergeAll.py DIRECTORY_MERGE.sql DB_sezioni.sql drop_all_tables.sql
 ./clearResults.sh
 
 cp Elenco_comuni_2011.csv results/.
-python remap.py results/Elenco_comuni_2011.csv ",:."
+python number_format.py results/Elenco_comuni_2011.csv
 
 python parseCSV.py results/Elenco_comuni_2011.csv 24,6,-1
 

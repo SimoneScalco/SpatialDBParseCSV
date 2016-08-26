@@ -180,7 +180,12 @@ print "[STATUS] Table num headers appended: " + str(len(headersTypesRelatedTable
 counter = 0
 # Create a list from the CSV file (each CSV row becomes an element)
 for singleRow in allLines:
-    rowsSplitted.append(singleRow.split(','))
+    #rowsSplitted.append(singleRow.split(','))
+    #rowsSplitted.append(singleRow)
+    listTemp=[]
+    listTemp.append(singleRow)
+    rowsSplitted.append(listTemp)
+
     counter += 1
 
 # Deletes the first element of the list (which contained the headers)
@@ -263,7 +268,7 @@ for singleColumnIndex in columnIndexes:
                 # Writes the name of the column of the foreign key in the create table file
                 createTableFile.write(headersList[int(singleColumnForeignKey)] + ' ' + headersTypes[int(singleColumnForeignKey)] + ',\n')
 
-    print foreignKeysAlreadyWritten
+    #print foreignKeysAlreadyWritten
 
     counterHeader = counter
     counterRow = 0
@@ -412,7 +417,7 @@ for singleRow in rowsSplitted:
         for singleKey in dictionaryRow:
 
             # Removes the possible escape characters in the strings
-            tempString = ''.join(e for e in singleKey if e.isalnum() or e == '_')
+            tempString = ''.join(e for e in singleKey if e.isalnum() or e == '_' or e == ',' or e == '.')
 
             if firstCycle:
                 insertValuesFile.write(tempString)
@@ -431,10 +436,10 @@ for singleRow in rowsSplitted:
                 firstCycle=False
             else:
                 insertValuesFile.write(', ')
-            #print tempString
+
             # Removes the possible escape characters in the strings
             tempString = ''.join(e for e in dictionaryRow[singleElement])
-            sanitizedValue = ''.join(e for e in dictionaryRow[singleElement] if e.isalnum() or e == ',')
+            sanitizedValue = ''.join(e for e in dictionaryRow[singleElement] if e.isalnum() or e == ',' or e == '.')
 
             # Check if we need to write into a varchar
             if not (str(sanitizedValue).isdigit()):
