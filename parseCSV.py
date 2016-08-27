@@ -17,12 +17,10 @@ def checkIfInteger(s):
 
 def checkIfFloat(s):
 
+    # Regular expression for parsing floats
     reg=re.compile('[0-9]+\.[0-9]+')
-    '''for e in s:
-        if e == '.':
-            return True
 
-    return False'''
+    # Checks the result of the match between the regular expression and the input
     return reg.match(s)!=None
 
 def detectPSQLOverflow(rows,column):
@@ -33,6 +31,7 @@ def detectPSQLOverflow(rows,column):
         riga = ''.join(row).split(';')
 
         if riga[column]!='' and riga[column]!='null' and riga[column]!= '-':
+
             # Checks if the integer does not overflow the 32-bit representation of PostgreSQL
             if int(riga[column]) > 2147483647:
                 isBigint=True
