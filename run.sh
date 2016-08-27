@@ -125,7 +125,7 @@ python mergeAll.py DIRECTORY_MERGE.sql DB_EXTRA_elenco_comuni.sql
 
 ./clearResults.sh
 
-python parseCSV.py joint_loc_coor.csv 6,6,-1 13,7,6 89,7,7 104,7,7 110,7,7 122,7,7 153,7,7 178,6,6
+python parseCSV.py joint_loc_coor.csv 6,6,-1 13,7,6 89,7,7 104,7,7 110,7,7 122,7,7 153,7,7 176,6,6
 
 # Merges the files contained in the first subdirectory
 python mergeFiles.py results/create_tables/ .sql
