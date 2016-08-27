@@ -151,7 +151,7 @@ python mergeAll.py DIRECTORY_MERGE.sql DB_località_final.sql drop_all_tables.sq
 
 ./clearResults.sh
 
-python parseCSV.py joint_sez_coor.csv 6,6,-1 11,7,6 87,7,7 104,7,7 110,7,7 122,7,7 153,7,7 176,7,7
+python parseCSV.py joint_sez_coor.csv 6,6,-1 11,7,6 87,7,7 102,7,7 108,7,7 120,7,7 151,7,7 174,7,7
 
 # Merges the files contained in the first subdirectory
 python mergeFiles.py results/create_tables/ .sql
