@@ -102,6 +102,7 @@ def parseCharacters(singleElement):
             insertValuesFile.write(singleCharacter)
 
 
+# Function that checks if the character is in a predefined list of allowed chars
 def isAllowedCharacter(e):
 
     allowedCharactersList = [' ', '-', '/', '\'', ';', 'ü', 'ß', 'ö', 'ò', 'é', 'è', 'à', 'ì', 'ù']
@@ -404,9 +405,6 @@ for singleRow in rowsSplitted:
             if int(singleColumnForeignKey) != -1:
                 dictionaryRow[headersList[int(singleColumnForeignKey)]] = singleRowListDivided[int(singleColumnForeignKey)]
 
-        #print dictionaryRow
-
-
 
         # Opens a new file for the insert scripts
         fileName = str(counterFile) + '_insert_' + str(counter) + "-" + str(singleColumnIndex) + fileExtension
@@ -444,12 +442,15 @@ for singleRow in rowsSplitted:
             tempString = ''.join(e for e in dictionaryRow[singleElement])
             sanitizedValue = ''.join(e for e in dictionaryRow[singleElement] if e.isalnum() or e == ',' or e == '.')
 
-            # Check if we need to write into a varchar
-            #if not (str(sanitizedValue).isdigit()):
+            # Check if we need to write into a varchar or into an integer
             if checkIfFloat(str(sanitizedValue)) or checkIfInteger(str(sanitizedValue)):
+
                 # Parse rare characters and substitute them
                 parseCharacters(tempString)
+
             else:
+
+                # Check if the string contains special sequences
                 if tempString != '' and tempString !='null' and tempString != '-':
 
                     insertValuesFile.write("'")
@@ -461,12 +462,9 @@ for singleRow in rowsSplitted:
 
 
                 else:
+
+                    # Writes NULL if the cell contains special character sequence
                     insertValuesFile.write('NULL')
-
-            #elif str(tempString) == '-':
-
-                #insertValuesFile.write('NULL')
-
 
 
             # Update the counter of the elements

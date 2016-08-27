@@ -25,6 +25,8 @@ for i in range(1,len(lines)):
     if str1!=str2:
         file.write(lines[i])
     else:
-        print "[STATUS 3] Removed line " + str(i + 1)
+        #print "[STATUS 3] Removed line " + str(i + 1)
+
+        continue
 
 file.close()
