@@ -11,3 +11,8 @@ Tabella 5 [Houses] colonne 105-110, chiave primaria PROCOM-ACE, chiave esterna P
 Tabella 6 [Families] colonne 111-122, chiave primaria PROCOM-ACE, chiave esterna PROCOM
 
 Tabella 7 [Buildings] colonne 123-153, chiave primaria PROCOM-ACE, chiave esterna PROCOM
+
+Run DB_località.sql
+Run DB_EXTRA_elenco_comuni
+Run query contained in "select_all_data" file
+Open file with LibreOffice Calc and reorder columns as you wish

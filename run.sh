@@ -116,7 +116,7 @@ python remap.py results/insert_queries/DIRECTORY_MERGE.sql census_area_0:LOC_EXT
 
 
 #Merge all DIRECTORY_MERGE
-python mergeAll.py DIRECTORY_MERGE.sql DB_EXTRA_elenco_comuni.sql drop_all_tables.sql
+python mergeAll.py DIRECTORY_MERGE.sql DB_EXTRA_elenco_comuni.sql
 
 
 ###############################################
