@@ -33,20 +33,28 @@ for i in range(0,len(lines)):
     lines[i]=''
 
     firstCicle=True;
-
+    counter = 0
     for lin in linea:
+
+        # Check if the string matches the pattern of our regular expression
         if reg.match(lin)!=None:
-            print '[NUMBER FORMAT] changing line 1'
+
             lin=lin.replace(',','.')
+            counter += 1
 
         if firstCicle:
+
             lines[i]=lines[i]+lin.split('\n')[0]
             firstCicle=False;
+
         else:
+
             lines[i]=lines[i]+';'+lin.split('\n')[0]
 
 
     lines[i]=lines[i]+'\n'
+
+    print '[NUMBER FORMAT] Lines replaced: ' + str(counter)
 
 # Writing the output file
 outputFile=open(fileName,'w')
@@ -55,4 +63,4 @@ for line in lines:
 
 outputFile.close()
 
-print '[STATUS 4] Requested table names have been remapped'
+print '[NUMBER FORMAT] Requested table names have been remapped'
