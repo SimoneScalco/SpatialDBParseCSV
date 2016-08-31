@@ -32,7 +32,7 @@ for i in range(0,len(lines)):
     linea=lines[i].split(";")
     lines[i]=''
 
-    firstCicle=True;
+    firstCycle=True;
     counter = 0
     for lin in linea:
 
@@ -42,10 +42,10 @@ for i in range(0,len(lines)):
             lin=lin.replace(',','.')
             counter += 1
 
-        if firstCicle:
+        if firstCycle:
 
             lines[i]=lines[i]+lin.split('\n')[0]
-            firstCicle=False;
+            firstCycle=False;
 
         else:
 
@@ -54,7 +54,7 @@ for i in range(0,len(lines)):
 
     lines[i]=lines[i]+'\n'
 
-    print '[NUMBER FORMAT] Lines replaced: ' + str(counter)
+print '[NUMBER FORMAT] Lines replaced: ' + str(counter)
 
 # Writing the output file
 outputFile=open(fileName,'w')
