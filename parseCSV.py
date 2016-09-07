@@ -208,7 +208,7 @@ for singleHeader in headersList:
     elif checkIfInteger(singleRow[counterColumn]):
 
         if detectPSQLOverflow(rowsSplitted,counterColumn):
-            headersTypes.append("bigint")
+            headersTypes.append("double precision")
 
         else:
             headersTypes.append("integer")
