@@ -10,6 +10,8 @@ extension = '.csv'
 # Gets the list of files for the directory to inspect
 filesList = os.listdir(directory)
 
+filesList.sort()
+
 # Opens the output file
 outputFileName = 'allRegions'
 outputFile = open(directory + outputFileName + extension, 'w')
