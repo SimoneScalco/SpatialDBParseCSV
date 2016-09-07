@@ -11,7 +11,7 @@ extension = '.csv'
 filesList = os.listdir(directory)
 
 # Opens the output file
-outputFileName = 'mergeThemAllPokemon'
+outputFileName = 'allRegions'
 outputFile = open(directory + outputFileName + extension, 'w')
 
 firstCycle = True
