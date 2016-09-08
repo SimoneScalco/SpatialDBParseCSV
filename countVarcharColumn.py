@@ -23,7 +23,7 @@ for singleLine in allLines:
     lineFields = singleLine.split(';')
 
     # String representing the parameter of the column
-    tempString = lineFields[columnIndex]
+    tempString = lineFields[int(columnIndex)]
 
     # Checks if the current string length is greater than the maximum
     if len(tempString) > maxLen:
