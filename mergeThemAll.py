@@ -25,13 +25,13 @@ for fileName in filesList:
 
     allLines = inputFile.readlines()
 
-    if firstCycle:
+    '''if firstCycle:
 
         firstCycle = False
 
     else:
 
-        del allLines[0]
+        del allLines[0]'''
 
     for singleLine in allLines:
         outputFile.write(singleLine)
