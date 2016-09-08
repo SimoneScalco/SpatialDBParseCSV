@@ -3,7 +3,7 @@
 charachters={}
 
 # Opens the INSERT_ALL file and reads every line, then appends the content in the dictionary
-with open('results/INSERT_ALL.sql','r') as file:
+with open('results/FIXED_INSERT_ALL.sql','r') as file:
     for line in file:
         for c in line:
             charachters[c]=1
