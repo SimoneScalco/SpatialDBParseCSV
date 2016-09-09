@@ -4,9 +4,9 @@ import sys
 reload(sys)
 sys.setdefaultencoding('UTF-8')
 
-insertValuesFile=open('results/FIXED_INSERT_ALL.sql','w')
+insertValuesFile=open('results/DB_EXTRA_FIXED_elenco_comuni.sql','w')
 
-with open('results/INSERT_ALL.sql','r') as file:
+with open('results/DB_EXTRA_elenco_comuni.sql','r') as file:
     for line in file:
         for singleCharacter in line:
 
@@ -20,10 +20,15 @@ with open('results/INSERT_ALL.sql','r') as file:
             elif singleCharacter == 'ö' or singleCharacter == 'ò' or singleCharacter == 'ô':
                 insertValuesFile.write('o')
 
-            elif singleCharacter == 'é' or singleCharacter == 'è' or singleCharacter == 'ê':
+            elif singleCharacter == 'é' or singleCharacter == 'è' or singleCharacter == 'ê' or singleCharacter == '\xa8':
+
                 insertValuesFile.write('e')
 
-            elif singleCharacter == 'à' or singleCharacter == 'â':
+            elif singleCharacter == '\xc3':
+
+                insertValuesFile.write('')
+
+            elif singleCharacter == 'à' or singleCharacter == 'â' or singleCharacter == '\xa0':
                 insertValuesFile.write('a')
 
             elif singleCharacter == 'ì':

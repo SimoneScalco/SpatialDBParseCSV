@@ -1,9 +1,14 @@
+# coding=UTF-8
+import sys
+
+#reload(sys)
+#sys.setdefaultencoding('UTF-8')
 
 # Dictionary of characters
 charachters={}
 
 # Opens the INSERT_ALL file and reads every line, then appends the content in the dictionary
-with open('results/FIXED_INSERT_ALL.sql','r') as file:
+with open('results/DB_EXTRA_FIXED_elenco_comuni.sql','r') as file:
     for line in file:
         for c in line:
             charachters[c]=1

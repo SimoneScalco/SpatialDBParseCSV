@@ -1,0 +1,6 @@
+
+--SELECT * FROM comuni WHERE codreg = 4 LIMIT 10
+--SELECT * FROM comuni NATURAL JOIN info_extra LIMIT 10
+--DROP TABLE info_extra
+--ALTER TABLE public.loc_extra RENAME TO info_extra;
+--ALTER TABLE public.info_extra ADD CONSTRAINT info_extra_comuni_fkey FOREIGN KEY (pro_com) REFERENCES public.comuni(procom)
