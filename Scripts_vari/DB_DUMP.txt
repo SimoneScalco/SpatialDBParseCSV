@@ -1,0 +1,118 @@
+
+DUMP COMMANDS (UNIX):
+pg_dump -i -h localhost -p 5433 -U postgres -F c -b -v -f 
+"C:/Users/Simone/Desktop/ShapeFile/sezioni.backup" sezioni2011_nazionale
+
+DUMP COMMANDS (WINDOWS):
+pg_dump.exe --file "C:/sezioni.sql" --host "localhost" --port "5433" --username "postgres" --no-password --verbose --role "postgres" --format=c --blobs --encoding "SQL_ASCII" "sezioni2011_nazionale"
+
+
+DUMP LOG:
+C:/Program Files/PostgreSQL/9.5/bin\pg_dump.exe --host localhost --port 5433 --username "postgres" --role "postgres" --no-password  --format custom --blobs --encoding UTF8 --verbose --file "C:\Users\Simone\PycharmProjects\sezioni2011_nazionale.backup" "sezioni2011_nazionale"
+pg_dump: lettura delle estensioni
+pg_dump: identificazione dei membri delle estensioni
+pg_dump: lettura schemi
+pg_dump: lettura delle tabelle definite dall'utente
+pg_dump: lettura funzioni definite dall'utente
+pg_dump: lettura tipi definiti dall'utente
+pg_dump: lettura linguaggi procedurali
+pg_dump: lettura funzioni di aggregazione definite dall'utente
+pg_dump: lettura operatori definiti dall'utente
+pg_dump: lettura classi operatore definite dall'utente
+pg_dump: lettura delle famiglie di operatori definiti dall'utente
+pg_dump: lettura dei parser di ricerca testo definiti dall'utente
+pg_dump: lettura dei modelli di ricerca testo definiti dall'utente
+pg_dump: lettura dei dizionari di ricerca testo definiti dall'utente
+pg_dump: lettura delle configurazioni di ricerca testo definite dall'utente
+pg_dump: lettura dei wrapper di dati esterni definiti dall'utente
+pg_dump: lettura dei server esterni definiti dall'utente
+pg_dump: lettura dei privilegi predefiniti
+pg_dump: lettura degli ordini definiti dall'utente
+pg_dump: lettura delle conversioni definite dall'utente
+pg_dump: lettura delle conversioni dei tipi
+pg_dump: lettura delle trasformazioni
+pg_dump: lettura informazioni di ereditarietà delle tabelle
+pg_dump: lettura dei trigger di evento
+pg_dump: ricerca delle tabelle delle estensioni
+pg_dump: ricerca delle relazioni di ereditarietà
+pg_dump: lettura informazioni di colonna per le tabelle interessate
+pg_dump: lettura delle colonne e dei tipi della tabella "public.comuni"
+pg_dump: lettura delle colonne e dei tipi della tabella "public.sezioni"
+pg_dump: lettura delle colonne e dei tipi della tabella "public.popolazione_residente"
+pg_dump: lettura delle colonne e dei tipi della tabella "public.stranieri_residenti"
+pg_dump: lettura delle colonne e dei tipi della tabella "public.abitazioni"
+pg_dump: lettura delle colonne e dei tipi della tabella "public.famiglie"
+pg_dump: lettura delle colonne e dei tipi della tabella "public.edifici"
+pg_dump: lettura delle colonne e dei tipi della tabella "public.info_extra"
+pg_dump: lettura delle colonne e dei tipi della tabella "public.spatial_ref"
+pg_dump: lettura delle espressioni di default della tabella "public.spatial_ref"
+pg_dump: marcatura colonne ereditate nelle sottotabelle
+pg_dump: lettura degli indici
+pg_dump: lettura degli indici della tabella "public.comuni"
+pg_dump: lettura degli indici della tabella "public.sezioni"
+pg_dump: lettura degli indici della tabella "public.popolazione_residente"
+pg_dump: lettura degli indici della tabella "public.stranieri_residenti"
+pg_dump: lettura degli indici della tabella "public.abitazioni"
+pg_dump: lettura degli indici della tabella "public.famiglie"
+pg_dump: lettura degli indici della tabella "public.edifici"
+pg_dump: lettura degli indici della tabella "public.info_extra"
+pg_dump: lettura degli indici della tabella "public.spatial_ref"
+pg_dump: lettura dei vincoli
+pg_dump: lettura dei vincoli di chiave esterna della tabella "public.comuni"
+pg_dump: lettura dei vincoli di chiave esterna della tabella "public.sezioni"
+pg_dump: lettura dei vincoli di chiave esterna della tabella "public.popolazione_residente"
+pg_dump: lettura dei vincoli di chiave esterna della tabella "public.stranieri_residenti"
+pg_dump: lettura dei vincoli di chiave esterna della tabella "public.abitazioni"
+pg_dump: lettura dei vincoli di chiave esterna della tabella "public.famiglie"
+pg_dump: lettura dei vincoli di chiave esterna della tabella "public.edifici"
+pg_dump: lettura dei vincoli di chiave esterna della tabella "public.info_extra"
+pg_dump: lettura dei vincoli di chiave esterna della tabella "public.spatial_ref"
+pg_dump: lettura dei trigger
+pg_dump: lettura dei trigger della tabella "public.comuni"
+pg_dump: lettura dei trigger della tabella "public.sezioni"
+pg_dump: lettura dei trigger della tabella "public.popolazione_residente"
+pg_dump: lettura dei trigger della tabella "public.stranieri_residenti"
+pg_dump: lettura dei trigger della tabella "public.abitazioni"
+pg_dump: lettura dei trigger della tabella "public.famiglie"
+pg_dump: lettura dei trigger della tabella "public.edifici"
+pg_dump: lettura dei trigger della tabella "public.info_extra"
+pg_dump: lettura dei trigger della tabella "public.spatial_ref"
+pg_dump: lettura regole di riscrittura
+pg_dump: lettura delle regole di sicurezza
+pg_dump: letture delle regole di sicurezza per riga abilitata per la tabella "public.comuni"
+pg_dump: lettura delle regole di sicurezza per la tabella "public.comuni"
+pg_dump: letture delle regole di sicurezza per riga abilitata per la tabella "public.sezioni"
+pg_dump: lettura delle regole di sicurezza per la tabella "public.sezioni"
+pg_dump: letture delle regole di sicurezza per riga abilitata per la tabella "public.popolazione_residente"
+pg_dump: lettura delle regole di sicurezza per la tabella "public.popolazione_residente"
+pg_dump: letture delle regole di sicurezza per riga abilitata per la tabella "public.stranieri_residenti"
+pg_dump: lettura delle regole di sicurezza per la tabella "public.stranieri_residenti"
+pg_dump: letture delle regole di sicurezza per riga abilitata per la tabella "public.abitazioni"
+pg_dump: lettura delle regole di sicurezza per la tabella "public.abitazioni"
+pg_dump: letture delle regole di sicurezza per riga abilitata per la tabella "public.famiglie"
+pg_dump: lettura delle regole di sicurezza per la tabella "public.famiglie"
+pg_dump: letture delle regole di sicurezza per riga abilitata per la tabella "public.edifici"
+pg_dump: lettura delle regole di sicurezza per la tabella "public.edifici"
+pg_dump: letture delle regole di sicurezza per riga abilitata per la tabella "public.info_extra"
+pg_dump: lettura delle regole di sicurezza per la tabella "public.info_extra"
+pg_dump: letture delle regole di sicurezza per riga abilitata per la tabella "public.spatial_ref_gid_seq"
+pg_dump: lettura delle regole di sicurezza per la tabella "public.spatial_ref_gid_seq"
+pg_dump: letture delle regole di sicurezza per riga abilitata per la tabella "public.spatial_ref"
+pg_dump: lettura delle regole di sicurezza per la tabella "public.spatial_ref"
+pg_dump: lettura dei large object
+pg_dump: lettura dati di dipendenza
+pg_dump: salvataggio codifica = UTF8
+pg_dump: salvataggio standard_conforming_strings = on
+pg_dump: salvataggio definizione del database
+pg_dump: salvataggio del contenuto della tabella "public.abitazioni"
+pg_dump: salvataggio del contenuto della tabella "public.comuni"
+pg_dump: salvataggio del contenuto della tabella "public.edifici"
+pg_dump: salvataggio del contenuto della tabella "public.famiglie"
+pg_dump: salvataggio del contenuto della tabella "public.info_extra"
+pg_dump: salvataggio del contenuto della tabella "public.popolazione_residente"
+pg_dump: salvataggio del contenuto della tabella "public.sezioni"
+pg_dump: salvataggio del contenuto della tabella "public.spatial_ref"
+pg_dump: salvataggio del contenuto della tabella "public.spatial_ref_sys"
+pg_dump: salvataggio del contenuto della tabella "public.stranieri_residenti"
+
+Process returned exit code 0.
