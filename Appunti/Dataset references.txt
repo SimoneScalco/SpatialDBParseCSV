@@ -1,0 +1,13 @@
+REGIONALE:
+R04_11_WGS84				-> Probabilmente sezioni
+R04_limiti_Com_R04_WG84			-> Comuni
+R04_limiti_Nome_Comune_R04_WGS84 	-> Centroidi comunali
+R04_limiti_Prov_R04_WGS84 		-> Limiti provincia (tn e bz)
+R04_limiti_Provincia 			-> Centroidi provinciali
+
+
+NAZIONALE:
+Localita_11_WGS84	-> Localita a livello nazionale
+Com2011_WGS84		-> Comuni a livello nazionale
+Prov2011_WGS84		-> Provincie a livello nazionale
+Reg2011_WGS84		-> Regioni a livello nazionale
